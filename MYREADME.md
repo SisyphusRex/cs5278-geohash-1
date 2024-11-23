@@ -1,0 +1,11 @@
+To run main method:
+1. go to build.gradle file
+2. add
+    * plugins {
+        id 'application'
+    }
+
+    * application {
+        mainClass = 'edu.vanderbilt.cs.live2.GeoHash'
+    }
+3. ./gradlew run
