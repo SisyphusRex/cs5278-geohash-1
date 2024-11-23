@@ -8,4 +8,5 @@ To run main method:
     * application {
         mainClass = 'edu.vanderbilt.cs.live2.GeoHash'
     }
-3. ./gradlew run
+3. terminal from root directory
+  * ./gradlew run
