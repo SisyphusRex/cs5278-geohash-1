@@ -22,3 +22,5 @@ test {
 application {
     mainClass = 'edu.vanderbilt.cs.live2.GeoHash'
 }
+
+
