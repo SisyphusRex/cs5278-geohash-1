@@ -113,7 +113,30 @@ public class GeoHash {
         // bitsOfPrecision.
         //
 
-        return null;
+        boolean[] latitudeGeohash = geohash1D(v1, v1range, bitsOfPrecision);
+        boolean[] longitudeGeohash = geohash1D(v2, v2range, bitsOfPrecision);
+        boolean[] geohash = new boolean[2 * bitsOfPrecision];
+        for (int i = 0; i < latitudeGeohash.length; i++) {
+            if (i == 0) {
+                geohash[0] = latitudeGeohash[i];
+            } else {
+                geohash[i * 2] = latitudeGeohash[i];
+            }
+        }
+        for (int i = 0; i < longitudeGeohash.length; i++) {
+            if (i == 0) {
+                geohash[1] = longitudeGeohash[i];
+            } else {
+                geohash[(i * 2) + 1] = longitudeGeohash[i];
+            }
+        }
+
+        boolean[] truncatedGeohash = new boolean[bitsOfPrecision];
+
+        for (int i = 0; i < bitsOfPrecision; i++) {
+            truncatedGeohash[i] = geohash[i];
+        }
+        return truncatedGeohash;
     }
 
     public static boolean[] geohash(double lat, double lon, int bitsOfPrecision) {
@@ -204,5 +227,14 @@ public class GeoHash {
         assertEquals("00011", geohashString(-136.0, LONGITUDE_RANGE, 5));
         assertEquals("00001", geohashString(-158.5, LONGITUDE_RANGE, 5));
         assertEquals("00000", geohashString(-169.75, LONGITUDE_RANGE, 5));
+
+        assertEquals("0000000000", toHashString(geohash(LATITUDE_RANGE[0], LONGITUDE_RANGE[0], 10)));
+        assertEquals("0101010101", toHashString(geohash(LATITUDE_RANGE[0], LONGITUDE_RANGE[1], 10)));
+        assertEquals("01010101010", toHashString(geohash(LATITUDE_RANGE[0], LONGITUDE_RANGE[1], 11)));
+        assertEquals("01010101010", toHashString(geohash(LATITUDE_RANGE[0], LONGITUDE_RANGE[1], 11)));
+        assertEquals("1010101011", toHashString(geohash(LATITUDE_RANGE[1], -158.5, 10)));
+        assertEquals("10101010111", toHashString(geohash(LATITUDE_RANGE[1], -158.5, 11)));
+        assertEquals("10101010111111", toHashString(geohash(LATITUDE_RANGE[1], -158.5, 14)));
+        assertEquals("11111111111111", toHashString(geohash(LATITUDE_RANGE[1], LONGITUDE_RANGE[1], 14)));
     }
 }

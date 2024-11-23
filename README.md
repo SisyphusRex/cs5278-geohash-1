@@ -10,3 +10,6 @@ To run main method:
     }
 3. terminal from root directory
      * ./gradlew run
+
+To Test:
+1. ./gradlew test
