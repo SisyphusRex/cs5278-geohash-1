@@ -9,4 +9,4 @@ To run main method:
         mainClass = 'edu.vanderbilt.cs.live2.GeoHash'
     }
 3. terminal from root directory
-  * ./gradlew run
+     * ./gradlew run
